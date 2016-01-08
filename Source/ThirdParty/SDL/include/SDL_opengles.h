@@ -26,11 +26,21 @@
  */
 
 #ifdef __IPHONEOS__
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
+    #include <OpenGLES/ES1/gl.h>
+    #include <OpenGLES/ES1/glext.h>
 #else
-#include <GLES/gl.h>
-#include <GLES/glext.h>
+    #ifdef HAVE_OPENGLES
+        #if defined(EMSCRIPTEN) || defined(ANDROID)
+          #include <GLES2/gl2.h>
+        #elif defined(DARWIN)
+            #include <OpenGL/gl.h>
+            #include <GLES/glext.h>        
+        #elif defined(IOS)
+            #include <OpenGLES/ES2/gl.h>
+        #else
+            #include <GLES2/gl2.h>
+        #endif
+    #endif
 #endif
 
 #ifndef APIENTRY

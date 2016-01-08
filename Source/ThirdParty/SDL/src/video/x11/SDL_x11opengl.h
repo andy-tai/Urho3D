@@ -23,8 +23,16 @@
 #ifndef _SDL_x11opengl_h
 #define _SDL_x11opengl_h
 
+#define HAVE_OPENGLES
+
 #if SDL_VIDEO_OPENGL_GLX
+
+#ifdef HAVE_OPENGLES
+#include "SDL_opengles.h"
+#else
 #include "SDL_opengl.h"
+#endif
+//#include "SDL_opengl.h"
 #include <GL/glx.h>
 
 struct SDL_GLDriverData
