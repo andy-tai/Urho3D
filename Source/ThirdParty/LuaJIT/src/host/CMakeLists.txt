@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2013 the Urho3D project.
+# Copyright (c) 2008-2015 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 
-if (CMAKE_PROJECT_NAME STREQUAL ExternalProject-tolua++)
+if (CMAKE_PROJECT_NAME STREQUAL Urho3D-ExternalProject-tolua++)
     # Do not install the buildvm host tool from tolua++ external project because it is built for targetting host system itself
     # We only want to keep the buildvm host tool which is built for cross-compiling target (the one built from internal LuaJIT CMake-target)
     set (DEST_RUNTIME_DIR "")   # In this particular case, it is not equivalent to unset() the variable
