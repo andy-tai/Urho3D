@@ -2068,11 +2068,14 @@ ShaderVariation* Graphics::GetShader(ShaderType type, const char* name, const ch
     {
         ResourceCache* cache = GetSubsystem<ResourceCache>();
 
-        String fullShaderName = shaderPath_ + name + shaderExtension_;
+        String fullShaderName = name ;
+        if (lastShaderName_ == name && !cache->Exists(name))
+{
+        fullShaderName = shaderPath_ + name + shaderExtension_;
         // Try to reduce repeated error log prints because of missing shaders
         if (lastShaderName_ == name && !cache->Exists(fullShaderName))
             return 0;
-
+}
         lastShader_ = cache->GetResource<Shader>(fullShaderName);
         lastShaderName_ = name;
     }
