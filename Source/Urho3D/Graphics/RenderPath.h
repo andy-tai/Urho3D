@@ -102,7 +102,7 @@ struct RenderTargetInfo
 };
 
 /// Rendering path command.
-struct RenderPathCommand
+struct URHO3D_API RenderPathCommand
 {
     /// Construct.
     RenderPathCommand() :
