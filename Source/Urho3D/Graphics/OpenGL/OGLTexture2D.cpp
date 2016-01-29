@@ -478,6 +478,11 @@ bool Texture2D::Create()
     }
 
     glGenTextures(1, &object_);
+    if (object_ == 0)
+    {
+        URHO3D_LOGERROR("GlGenTextures failed to create texture");
+        return false;
+    }
 
     // Ensure that our texture is bound to OpenGL texture unit 0
     graphics_->SetTextureForUpdate(this);
