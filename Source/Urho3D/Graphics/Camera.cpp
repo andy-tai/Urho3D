@@ -253,6 +253,12 @@ void Camera::SetFlipVertical(bool enable)
     MarkNetworkUpdate();
 }
 
+void Camera::SetProjection(Matrix4 mat)
+{
+    projection_ = mat;
+    projectionDirty_ = false;    
+}
+
 float Camera::GetNearClip() const
 {
     // Orthographic camera has always near clip at 0 to avoid trouble with shader depth parameters,

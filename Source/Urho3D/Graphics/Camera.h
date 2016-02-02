@@ -94,7 +94,9 @@ public:
     void SetClipPlane(const Plane& plane);
     /// Set vertical flipping mode. Called internally by View to resolve OpenGL / Direct3D9 rendertarget sampling differences.
     void SetFlipVertical(bool enable);
-
+    /// set projection matrix directly
+    void SetProjection(Matrix4 mat);
+    
     /// Return far clip distance.
     float GetFarClip() const { return farClip_; }
 
