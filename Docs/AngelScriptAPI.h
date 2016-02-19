@@ -117,6 +117,7 @@ void SetAttributeAnimationTime(const String&, float);
 void SetAttributeAnimationWrapMode(const String&, WrapMode);
 void SetInterceptNetworkUpdate(const String&, bool);
 void SetMorphWeight(uint, float);
+void UpdateBoneBoundingBox();
 
 // Properties:
 bool animationEnabled;
@@ -749,9 +750,9 @@ class BorderImage
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -789,6 +790,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -991,9 +993,9 @@ class Button
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -1031,6 +1033,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -1316,9 +1319,9 @@ class CheckBox
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -1356,6 +1359,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -3542,9 +3546,9 @@ class Cursor
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DefineShape(CursorShape, Texture, const IntRect&, const IntVector2&);
 void DefineShape(const String&, Texture, const IntRect&, const IntVector2&);
@@ -3584,6 +3588,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -4396,9 +4401,9 @@ class DropDownList
 void AddChild(UIElement);
 void AddItem(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -4439,6 +4444,7 @@ void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
 void RemoveAllItems();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -5667,9 +5673,9 @@ class LineEdit
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -5707,6 +5713,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -5882,11 +5889,11 @@ void AddChild(UIElement);
 void AddItem(UIElement);
 void AddSelection(uint);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
 void ChangeSelection(int, bool);
 void ClearSelection();
-void ClearTags();
 void CopySelectedItemsToClipboard();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
@@ -5932,6 +5939,7 @@ void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
 void RemoveAllItems();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -6249,6 +6257,25 @@ uint useTimer;
 int weakRefs;
 };
 
+class Matrix2
+{
+// Methods:
+bool Equals(const Matrix2&) const;
+Matrix2 Inverse() const;
+Vector2 Scale() const;
+Matrix2 Scaled(const Vector2&) const;
+void SetScale(const Vector2&);
+void SetScale(float);
+String ToString() const;
+Matrix2 Transpose() const;
+
+// Properties:
+float m00;
+float m01;
+float m10;
+float m11;
+};
+
 class Matrix3
 {
 // Methods:
@@ -6348,9 +6375,9 @@ class Menu
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -6388,6 +6415,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -6988,6 +7016,8 @@ class Node
 {
 // Methods:
 void AddChild(Node, uint = M_MAX_UNSIGNED);
+void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 Node Clone(CreateMode = REPLICATED);
 Component CloneComponent(Component, CreateMode, uint = 0);
@@ -7007,6 +7037,7 @@ Array<Node> GetChildren(bool = false) const;
 Array<Node> GetChildrenWithComponent(const String&, bool = false) const;
 Array<Node> GetChildrenWithScript(bool = false) const;
 Array<Node> GetChildrenWithScript(const String&, bool = false) const;
+Array<Node> GetChildrenWithTag(const String&, bool = false) const;
 Component GetComponent(const String&, bool = false) const;
 Array<Component> GetComponents() const;
 Array<Component> GetComponents(const String&, bool = false) const;
@@ -7018,6 +7049,7 @@ ScriptObject GetScriptObject(const String&) const;
 bool HasComponent(const String&) const;
 bool HasSubscribedToEvent(Object, const String&);
 bool HasSubscribedToEvent(const String&);
+bool HasTag(const String&);
 bool Load(File, bool = false);
 bool Load(VectorBuffer&, bool = false);
 bool LoadJSON(const JSONValue&, bool = false);
@@ -7032,6 +7064,7 @@ void Pitch(float, TransformSpace = TS_LOCAL);
 void Remove();
 void RemoveAllChildren();
 void RemoveAllComponents();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(Node);
 void RemoveChildren(bool, bool, bool);
@@ -7041,6 +7074,7 @@ void RemoveComponents(bool, bool);
 void RemoveComponents(const String&);
 void RemoveInstanceDefault();
 void RemoveObjectAnimation();
+bool RemoveTag(const String&);
 void ResetDeepEnabled();
 void ResetToDefault();
 void Roll(float, TransformSpace = TS_LOCAL);
@@ -7136,6 +7170,8 @@ Vector2 scale2D;
 Scene scene;
 /* readonly */
 ScriptObject scriptObject;
+/* readonly */
+Array<String> tags;
 bool temporary;
 /* readonly */
 Matrix3x4 transform;
@@ -8064,15 +8100,18 @@ int weakRefs;
 class Quaternion
 {
 // Methods:
+Quaternion Conjugate() const;
 float DotProduct(const Quaternion&) const;
 bool Equals(const Quaternion&) const;
 void FromAngleAxis(float, const Vector3&);
 void FromAxes(const Vector3&, const Vector3&, const Vector3&);
 void FromEulerAngles(float, float, float);
-bool FromLookRotation(const Vector3&, const Vector3&);
+bool FromLookRotation(const Vector3&, const Vector3& = Vector3 ( 0.0 , 1.0 , 0.0 ));
+void FromRotationMatrix(const Matrix3&);
 void FromRotationTo(const Vector3&, const Vector3&);
 Quaternion Inverse() const;
 bool IsNaN() const;
+float LengthSquared() const;
 Quaternion Nlerp(Quaternion, float, bool) const;
 void Normalize();
 Quaternion Normalized() const;
@@ -8086,6 +8125,8 @@ Vector3 eulerAngles;
 float pitch;
 /* readonly */
 float roll;
+/* readonly */
+Matrix3 rotationMatrix;
 float w;
 float x;
 float y;
@@ -8656,6 +8697,8 @@ class Scene
 // Methods:
 void AddChild(Node, uint = M_MAX_UNSIGNED);
 void AddRequiredPackageFile(PackageFile);
+void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void Clear(bool = true, bool = true);
 void ClearRequiredPackageFiles();
@@ -8676,12 +8719,14 @@ Array<Node> GetChildren(bool = false) const;
 Array<Node> GetChildrenWithComponent(const String&, bool = false) const;
 Array<Node> GetChildrenWithScript(bool = false) const;
 Array<Node> GetChildrenWithScript(const String&, bool = false) const;
+Array<Node> GetChildrenWithTag(const String&, bool = false) const;
 Component GetComponent(const String&, bool = false) const;
 Component GetComponent(uint) const;
 Array<Component> GetComponents() const;
 Array<Component> GetComponents(const String&, bool = false) const;
 bool GetInterceptNetworkUpdate(const String&) const;
 Node GetNode(uint) const;
+Array<Node> GetNodesWithTag(const String&) const;
 Component GetOrCreateComponent(const String&, CreateMode = REPLICATED, uint = 0);
 Component GetParentComponent(const String&, bool = false) const;
 ScriptObject GetScriptObject() const;
@@ -8689,6 +8734,7 @@ ScriptObject GetScriptObject(const String&) const;
 bool HasComponent(const String&) const;
 bool HasSubscribedToEvent(Object, const String&);
 bool HasSubscribedToEvent(const String&);
+bool HasTag(const String&);
 Node Instantiate(File, const Vector3&, const Quaternion&, CreateMode = REPLICATED);
 Node Instantiate(VectorBuffer&, const Vector3&, const Quaternion&, CreateMode = REPLICATED);
 Node InstantiateJSON(File, const Vector3&, const Quaternion&, CreateMode = REPLICATED);
@@ -8719,6 +8765,7 @@ void RegisterVar(const String&);
 void Remove();
 void RemoveAllChildren();
 void RemoveAllComponents();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(Node);
 void RemoveChildren(bool, bool, bool);
@@ -8728,6 +8775,7 @@ void RemoveComponents(bool, bool);
 void RemoveComponents(const String&);
 void RemoveInstanceDefault();
 void RemoveObjectAnimation();
+bool RemoveTag(const String&);
 void ResetToDefault();
 void Roll(float, TransformSpace = TS_LOCAL);
 void Rotate(const Quaternion&, TransformSpace = TS_LOCAL);
@@ -8843,6 +8891,8 @@ Vector2 scale2D;
 ScriptObject scriptObject;
 float smoothingConstant;
 float snapThreshold;
+/* readonly */
+Array<String> tags;
 bool temporary;
 float timeScale;
 /* readonly */
@@ -9018,10 +9068,10 @@ class ScrollBar
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
 void ChangeValue(float);
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -9059,6 +9109,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -9226,9 +9277,9 @@ class ScrollView
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -9266,6 +9317,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -9626,10 +9678,10 @@ class Slider
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
 void ChangeValue(float);
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -9667,6 +9719,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -10318,9 +10371,9 @@ class Sprite
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 uint FindChild(UIElement) const;
 Variant GetAttribute(const String&) const;
@@ -10353,6 +10406,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -11131,10 +11185,10 @@ class Text
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
 void ClearSelection();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -11172,6 +11226,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -12013,9 +12068,9 @@ class ToolTip
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -12053,6 +12108,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -12279,9 +12335,9 @@ class UIElement
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -12319,6 +12375,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -12567,6 +12624,7 @@ class Vector2
 // Methods:
 Vector2 Abs() const;
 float AbsDotProduct(const Vector2&) const;
+float Angle(const Vector2&) const;
 float DotProduct(const Vector2&) const;
 bool Equals(const Vector2&) const;
 bool IsNaN() const;
@@ -12756,9 +12814,9 @@ class View3D
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -12797,6 +12855,7 @@ void MarkNetworkUpdate() const;
 void QueueUpdate();
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
@@ -13025,9 +13084,9 @@ class Window
 // Methods:
 void AddChild(UIElement);
 void AddTag(const String&);
+void AddTags(const String&, int8 = ';');
 void ApplyAttributes();
 void BringToFront();
-void ClearTags();
 UIElement CreateChild(const String&, const String& = String ( ), uint = M_MAX_UNSIGNED);
 void DisableLayoutUpdate();
 IntVector2 ElementToScreen(const IntVector2&);
@@ -13065,6 +13124,7 @@ bool LoadXML(const XMLElement&, bool = false);
 void MarkNetworkUpdate() const;
 void Remove();
 void RemoveAllChildren();
+void RemoveAllTags();
 void RemoveAttributeAnimation(const String&);
 void RemoveChild(UIElement, uint = 0);
 void RemoveChild(uint);
